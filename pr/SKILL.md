@@ -39,14 +39,14 @@ git branch --show-current
 git fetch origin
 ```
 
-2. Merge the target branch into the current branch:
+2. Rebase the current branch on top of the target branch:
 
 // turbo
 ```bash
-git merge origin/{target_branch}
+git rebase origin/{target_branch}
 ```
 
-If there are merge conflicts, **abort** and prompt the user to resolve conflicts manually, then re-run `/pr`.
+If there are rebase conflicts, **abort** (`git rebase --abort`) and prompt the user to resolve conflicts manually, then re-run `/pr`.
 
 ## Step 3: Extract ticket numbers
 
@@ -109,11 +109,11 @@ Use the `ask_user_question` tool to present button options:
 
 ## Step 6: Push and create PR
 
-1. Push the current branch to remote:
+1. Push the current branch to remote (force push required after rebase):
 
 // turbo
 ```bash
-git push origin {current_branch}
+git push --force-with-lease origin {current_branch}
 ```
 
 2. Create the PR:
